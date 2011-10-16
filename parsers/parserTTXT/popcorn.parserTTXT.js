@@ -68,6 +68,16 @@
     returnData.data = cmds.reverse();
 
     return returnData;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "TTXT Parser",
+        version   : "0.1"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );

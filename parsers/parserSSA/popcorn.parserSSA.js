@@ -127,6 +127,16 @@
     
     retObj.data = subs;
     return retObj;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "SSA/ASS Parser",
+        version   : "0.3"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );

@@ -101,6 +101,24 @@
   *   src
   *   startOffsetTime
   */
+  
+  var manifest = {
+    manifest: {
+      about: {
+        name      : "Vimeo Player",
+        version   : "0.0",
+        container : "iframe, div"
+      },
+      options: {
+        width    : { elem: "input", type: "text", label: "Width" },
+        height   : { elem: "input", type: "text", label: "Height" },
+        name     : { elem: "input", type: "text", label: "Name" },
+        src      : { elem: "input", type: "text", label: "Video Source" },
+        start    : { elem: "input", type: "text", label: "Start" },
+        end      : { elem: "input", type: "text", label: "End" },
+      }
+    }
+  }
 
   // Trackers
   var timeupdateInterval = 33,

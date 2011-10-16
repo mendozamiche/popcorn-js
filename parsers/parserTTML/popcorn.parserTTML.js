@@ -165,6 +165,16 @@
     parseChildren( node, 0 );
 
     return returnData;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "TTML Parser",
+        version   : "0.3"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );

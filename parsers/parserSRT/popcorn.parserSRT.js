@@ -114,6 +114,17 @@
     
     retObj.data = subs;
     return retObj;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "SRT Parser",
+        version   : "0.3"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
 
 })( Popcorn );

@@ -95,6 +95,16 @@
     retObj.data = subs;
 
     return retObj;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "SBV Parser",
+        version   : "0.1"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );

@@ -116,6 +116,16 @@
     }
 
     return returnData;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "XML Parser",
+        version   : "0.1"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );

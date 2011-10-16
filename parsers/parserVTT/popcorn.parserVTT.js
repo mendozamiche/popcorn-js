@@ -119,6 +119,16 @@
     
     retObj.data = subs;
     return retObj;
+  },
+  {
+    manifest: {
+      about: {
+        name      : "WebSRT/VTT Parser",
+        version   : "0.0"
+      },
+      options: {
+        src: "";
+      }
+    }
   });
-
 })( Popcorn );
