@@ -41,8 +41,7 @@
     manifest: {
       about: {
         name      : "JSON Parser",
-        full-name : "JavaScript Object Notation",
-        version   : "0.0"
+        version   : "0.3"
       },
       options: {
         src:"";
