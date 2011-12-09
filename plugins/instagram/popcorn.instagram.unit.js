@@ -28,21 +28,21 @@ test( "Popcorn instagram Plugin", function() {
     username: "kaz_55",
     target: "instagramdiv",
     access_token: "12352090.f59def8.7f136890e8b94b5d9115f3fcc72d85fe"
-    })
-    .instagram({
+  })
+  .instagram({
     start: 15,
     end: 30,
     username: "audkawa",
     target: "instagramdiv",
     access_token: "12352090.f59def8.7f136890e8b94b5d9115f3fcc72d85fe"
-    })
-    .instagram({
+  })
+  .instagram({
     start: 30,
     end: 45,
     userid: "396",
     target: "instagramdiv",
     access_token: "12352090.f59def8.7f136890e8b94b5d9115f3fcc72d85fe"
-    });
+  });
 
   setupId = popped.getLastTrackEventId();
 

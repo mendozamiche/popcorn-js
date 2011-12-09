@@ -1,5 +1,5 @@
 // PLUGIN: Instagram
-(function (Popcorn) {
+(function ( Popcorn ) {
   /**
    * Instagram popcorn plugin
    * Appends a user's instagram images to an element on the page
@@ -10,10 +10,10 @@
    *  - either username or userid is required
    * Target: id of the document element that the image will be appended to ( must exist on the DOM)
    * access_token: Access token provided by the Instagram API
-   *
+
    * @param {Object} options
-   *
-   * Example:   
+
+   * Example:
        var p = Popcorn('#video')
          .instagram({
            start:          5,                    // seconds, mandatory
@@ -27,7 +27,7 @@
    */
   var htmlString = "";
   var idx = 0;
-  
+
   Popcorn.plugin( "instagram", function( options ){
     var access_token = options.access_token;
     var containerDiv,
@@ -39,9 +39,11 @@
     // this is later populated with instagram images
     containerDiv = document.createElement( "div" );
     containerDiv.id = "instagram" + idx;
-    containerDiv.style.width = "100%";
-    containerDiv.style.height = "100%";
-    containerDiv.style.display = "none";
+
+    var containerStyle = containerDiv.style;
+    containerStyle.width = "100%";
+    containerStyle.height = "100%";
+    containerStyle.display = "none";
     idx++;
 
     // ensure the target container exists
@@ -53,12 +55,12 @@
 
     // get the userid from Instagram API by using the username and access_token
     var getUserID = function() {
-      if ( !_userid ) {      
+      if ( !_userid ) {
         _uri = "https://api.instagram.com/v1/users/search?q=" + options.username + "&access_token=" + access_token + "&callback=instagram";
         Popcorn.getJSONP(  _uri, function( data ) {
           _userid = data.data[0].id;
           getInstaData();
-        });          
+        });
       } else {
         setTimeout(function () {
           getUserID();
@@ -73,9 +75,10 @@
     Popcorn.getJSONP( _uri, function( jsondata ) {
         var fragment = document.createElement( "p" );
         var htmlString = "";
-        htmlString = "<h3>" + jsondata.data[0].user.username + "</h3>";
-        htmlString += jsondata.data[0].caption ? ("<p>" + jsondata.data[0].caption.text + "</p>") : "" ;
-        htmlString += "<a href='" + jsondata.data[0].link + "' target='_blank' style='float:left;margin:0 10px 0 0;'><img src='" + jsondata.data[0].images.low_resolution.url + "' alt='" + (jsondata.data[0].caption ? jsondata.data[0].caption.text : "" ) + "'></a>";
+        var userInstagramInfo = json.data[ 0 ];
+        htmlString = "<h3>" + userInstagramInfo.user.username + "</h3>";
+        htmlString += userInstagramInfo.caption ? ("<p>" + userInstagramInfo.caption.text + "</p>") : "" ;
+        htmlString += "<a href='" + userInstagramInfo.link + "' target='_blank'><img src='" + userInstagramInfo.images.low_resolution.url + "' alt='" + (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) + "'></a>";
         fragment.innerHTML = htmlString;
         containerDiv.appendChild( fragment );
       });
@@ -111,7 +114,7 @@
         document.getElementById( options.target ) && document.getElementById( options.target ).removeChild( containerDiv );
       }
     }
-  }, 
+  },
   {
     manifest: {
       about: {
@@ -148,6 +151,6 @@
         },
         target: "instagramdiv"
       }
-    } 
+    }
   });
 })( Popcorn );
