@@ -62,9 +62,7 @@
           getInstaData();
         });
       } else {
-        setTimeout(function () {
-          getUserID();
-        }, 5 );
+        getUserID();
       }
     };
 
@@ -75,7 +73,7 @@
     Popcorn.getJSONP( _uri, function( jsondata ) {
         var fragment = document.createElement( "p" );
         var htmlString = "";
-        var userInstagramInfo = json.data[ 0 ];
+        var userInstagramInfo = jsondata.data[ 0 ];
         htmlString = "<h3>" + userInstagramInfo.user.username + "</h3>";
         htmlString += userInstagramInfo.caption ? ("<p>" + userInstagramInfo.caption.text + "</p>") : "" ;
         htmlString += "<a href='" + userInstagramInfo.link + "' target='_blank'><img src='" + userInstagramInfo.images.low_resolution.url + "' alt='" + (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) + "'></a>";
