@@ -48,17 +48,20 @@ test( "Popcorn instagram Plugin", function() {
 
   popped.exec( 3, function() {
 
-    ok( /display: inline;/.test( instagramdiv.innerHTML ), "Div contents are displayed" );
+    ok( /display: inline/.test( instagramdiv.innerHTML ), "Div contents are displayed" );
     plus();
+    
     ok( /img/.test( instagramdiv.innerHTML ), "An image exists" );
     plus();
+    
     equals( instagramdiv.childElementCount, 3, "instagramdiv now has three inner elements" );
     plus();
+    
   });
 
   popped.exec( 5, function() {
 
-    ok( /display: inline;/.test( instagramdiv.innerHTML ), "Div contents are displayed" );
+    ok( /display: inline/.test( instagramdiv.innerHTML ), "Div contents are displayed" );
     plus();
 
     ok( /img/.test( instagramdiv.innerHTML ), "An image exists" );
@@ -67,13 +70,14 @@ test( "Popcorn instagram Plugin", function() {
   });
 
   popped.exec( 8, function() {
-
+  
     ok( /display: none;/.test( instagramdiv.innerHTML ), "Div contents are hidden again" );
     plus();
 
     popped.pause().removeTrackEvent( setupId );
     ok( !instagramdiv.children[ 2 ], "Removed instagram was properly destroyed"  );
     plus();
+    
   });
 
   // empty track events should be safe
