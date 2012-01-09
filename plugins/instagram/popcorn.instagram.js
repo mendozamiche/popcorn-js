@@ -1,5 +1,5 @@
 // PLUGIN: Instagram
-(function ( Popcorn ) {
+(function( Popcorn ) {
   /**
    * Instagram popcorn plugin
    * Appends a user's instagram images to an element on the page
@@ -25,15 +25,14 @@
          } )
    *
    */
-  var htmlString = "";
   var idx = 0;
 
   Popcorn.plugin( "instagram", function( options ){
-    var access_token = options.access_token;
-    var containerDiv,
-      target = document.getElementById( options.target ),
-      _userid,
-      _uri;
+    var access_token = options.access_token,
+        containerDiv,
+        target = document.getElementById( options.target ),
+        _userid,
+        _uri;
 
     // create a new div this way anything in the target div is left intact
     // this is later populated with instagram images
@@ -71,14 +70,27 @@
     _uri = "https://api.instagram.com/v1/users/" + _userid + "/media/recent?count=1&access_token=" + access_token + "&callback=instagram";
 
     Popcorn.getJSONP( _uri, function( jsondata ) {
-        var fragment = document.createElement( "p" );
-        var htmlString = "";
         var userInstagramInfo = jsondata.data[ 0 ];
-        htmlString = "<h3>" + userInstagramInfo.user.username + "</h3>";
-        htmlString += userInstagramInfo.caption ? ("<p>" + userInstagramInfo.caption.text + "</p>") : "" ;
-        htmlString += "<a href='" + userInstagramInfo.link + "' target='_blank'><img src='" + userInstagramInfo.images.low_resolution.url + "' alt='" + (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) + "'></a>";
-        fragment.innerHTML = htmlString;
-        containerDiv.appendChild( fragment );
+
+        var usernameHeading = document.createElement( "h3" );
+        usernameHeading.innerText = userInstagramInfo.user.username;
+
+        var caption = document.createElement( "p" );
+        caption.innerHTML = userInstagramInfo.caption ? ( userInstagramInfo.caption.text) : "" ;
+
+        var instagramAnchor = document.createElement( "a" );
+        instagramAnchor.setAttribute( 'href' , userInstagramInfo.link);
+        instagramAnchor.setAttribute( 'target' , '_blank');
+
+        var picImgSrc = document.createElement( "img" );
+        picImgSrc.setAttribute( 'src' , userInstagramInfo.images.low_resolution.url );
+        picImgSrc.setAttribute( 'alt' , (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) );
+
+        instagramAnchor.appendChild( picImgSrc );
+
+        containerDiv.appendChild( usernameHeading );
+        containerDiv.appendChild( caption );
+        containerDiv.appendChild( instagramAnchor );
       });
     };
 
