@@ -121,7 +121,7 @@
       _teardown: function( options ) {
         document.getElementById( options.target ) && document.getElementById( options.target ).removeChild( containerDiv );
       }
-    }
+    };
   },
   {
     manifest: {
