@@ -29,8 +29,8 @@
 
   Popcorn.plugin( "instagram", function( options ){
     var access_token = options.access_token,
-        containerDiv,
         target = document.getElementById( options.target ),
+        containerDiv,
         _userid,
         _uri;
 
@@ -38,12 +38,12 @@
     // this is later populated with instagram images
     containerDiv = document.createElement( "div" );
     containerDiv.id = "instagram" + idx;
+    idx++;
 
     var containerStyle = containerDiv.style;
     containerStyle.width = "100%";
     containerStyle.height = "100%";
     containerStyle.display = "none";
-    idx++;
 
     // ensure the target container exists
     if ( !target && Popcorn.plugin.debug ) {
@@ -67,25 +67,23 @@
 
     // get the photos from Instagram API by using the userid
     var getInstaData = function() {
-    _uri = "https://api.instagram.com/v1/users/" + _userid + "/media/recent?count=1&access_token=" + access_token + "&callback=instagram";
+      _uri = "https://api.instagram.com/v1/users/" + _userid + "/media/recent?count=1&access_token=" + access_token + "&callback=instagram";
 
-    Popcorn.getJSONP( _uri, function( jsondata ) {
-        var userInstagramInfo = jsondata.data[ 0 ];
+      Popcorn.getJSONP( _uri, function( jsondata ) {
+        var userInstagramInfo = jsondata.data[ 0 ],
+            usernameHeading   = document.createElement( "h3" ),
+            caption           = document.createElement( "p" ),
+            instagramAnchor   = document.createElement( "a" ),
+            picImgSrc         = document.createElement( "img" );
 
-        var usernameHeading = document.createElement( "h3" );
         usernameHeading.innerText = userInstagramInfo.user.username;
-
-        var caption = document.createElement( "p" );
         caption.innerHTML = userInstagramInfo.caption ? ( userInstagramInfo.caption.text) : "" ;
 
-        var instagramAnchor = document.createElement( "a" );
-        instagramAnchor.setAttribute( 'href' , userInstagramInfo.link);
-        instagramAnchor.setAttribute( 'target' , '_blank');
-
-        var picImgSrc = document.createElement( "img" );
         picImgSrc.setAttribute( 'src' , userInstagramInfo.images.low_resolution.url );
         picImgSrc.setAttribute( 'alt' , (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) );
 
+        instagramAnchor.setAttribute( 'href' , userInstagramInfo.link);
+        instagramAnchor.setAttribute( 'target' , '_blank');
         instagramAnchor.appendChild( picImgSrc );
 
         containerDiv.appendChild( usernameHeading );
@@ -109,7 +107,7 @@
        * options variable
        */
       start: function( event, options ) {
-        containerDiv.style.display = "inline";
+        containerStyle.display = "inline";
       },
       /**
        * @member Instagram
@@ -118,7 +116,7 @@
        * options variable
        */
       end: function( event, options ) {
-        containerDiv.style.display = "none";
+        containerStyle.display = "none";
       },
       _teardown: function( options ) {
         document.getElementById( options.target ) && document.getElementById( options.target ).removeChild( containerDiv );
