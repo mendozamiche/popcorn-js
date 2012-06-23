@@ -67,29 +67,42 @@
 
     // get the photos from Instagram API by using the userid
     var getInstaData = function() {
-      _uri = "https://api.instagram.com/v1/users/" + _userid + "/media/recent?count=1&access_token=" + access_token + "&callback=instagram";
 
-      Popcorn.getJSONP( _uri, function( jsondata ) {
-        var userInstagramInfo = jsondata.data[ 0 ],
-            usernameHeading   = document.createElement( "h3" ),
-            caption           = document.createElement( "p" ),
-            instagramAnchor   = document.createElement( "a" ),
-            picImgSrc         = document.createElement( "img" );
+      if (!access_token){
+        var divText = document.createElement( "p" );
+        divText.innerHTML = "Instagram function parameters required";
+        containerDiv.appendChild( divText );
+      } else {
+        if ( !_userid ) {
+          var _tag = "html5";
+          _uri = "https://api.instagram.com/v1/tags/" + _tag + "/media/recent?access_token=" + access_token + "&callback=instagram";
+        } else {
+          _uri = "https://api.instagram.com/v1/users/" + _userid + "/media/recent?count=1&access_token=" + access_token + "&callback=instagram";
+        }
+        Popcorn.getJSONP( _uri, function( jsondata ) {
 
-        usernameHeading.innerText = userInstagramInfo.user.username;
-        caption.innerHTML = userInstagramInfo.caption ? ( userInstagramInfo.caption.text) : "" ;
+          var userInstagramInfo = jsondata.data[ 0 ],
+              usernameHeading   = document.createElement( "h3" ),
+              caption           = document.createElement( "p" ),
+              instagramAnchor   = document.createElement( "a" ),
+              picImgSrc         = document.createElement( "img" );
 
-        picImgSrc.setAttribute( 'src' , userInstagramInfo.images.low_resolution.url );
-        picImgSrc.setAttribute( 'alt' , (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) );
+          usernameHeading.innerText = userInstagramInfo.user.username;
 
-        instagramAnchor.setAttribute( 'href' , userInstagramInfo.link);
-        instagramAnchor.setAttribute( 'target' , '_blank');
-        instagramAnchor.appendChild( picImgSrc );
+          caption.innerHTML = userInstagramInfo.caption ? ( userInstagramInfo.caption.text) : "" ;
 
-        containerDiv.appendChild( usernameHeading );
-        containerDiv.appendChild( caption );
-        containerDiv.appendChild( instagramAnchor );
-      });
+          picImgSrc.setAttribute( 'src' , userInstagramInfo.images.low_resolution.url );
+          picImgSrc.setAttribute( 'alt' , (userInstagramInfo.caption ? userInstagramInfo.caption.text : "" ) );
+
+          instagramAnchor.setAttribute( 'href' , userInstagramInfo.link);
+          instagramAnchor.setAttribute( 'target' , '_blank');
+          instagramAnchor.appendChild( picImgSrc );
+
+          containerDiv.appendChild( usernameHeading );
+          containerDiv.appendChild( caption );
+          containerDiv.appendChild( instagramAnchor );
+        });
+      }
     };
 
     if ( options.username && options.access_token ) {
