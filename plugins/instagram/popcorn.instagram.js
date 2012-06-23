@@ -55,7 +55,7 @@
     // get the userid from Instagram API by using the username and access_token
     var getUserID = function() {
       if ( !_userid ) {
-        _uri = "https://api.instagram.com/v1/users/search?q=" + options.username + "&access_token=" + access_token + "&callback=instagram";
+        _uri = "https://api.instagram.com/v1/users/search?q=" + options.username + "&count=1&access_token=" + access_token + "&callback=instagram";
         Popcorn.getJSONP(  _uri, function( data ) {
           _userid = data.data[0].id;
           getInstaData();
